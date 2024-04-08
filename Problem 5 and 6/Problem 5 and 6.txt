@@ -1,0 +1,20 @@
+Problem 5:
+A robot being assigned a new task immediately can be an issue because we are in a multi-thread environment. 
+If the same robot tries to reacquire the tools immediately, it could lead to resource issues with other robots, especially those adjacent to it.
+This is because the adjacent robots cannot work simultaneously and need the same tools. These other robots could then have to wait a long time to complete their tasks.
+New tasks immediately might lead to a less predictable and more chaotic task execution, making it harder to understand the code, as well as debug it.
+Some solutions include including an algorithm that ensures each robot gets equal opportunity to complete tasks. 
+This can also be done by introducing a delay before or after a task so that other robots can start their task before the same one can start another one and hog all of the resources. 
+Another way to do this is assign priotiries or use a queue system. You can make it so that robots who just finished a task get a lower priority than ones who havent done so yet or the robots have to enter a queue where they are given an order. 
+
+Problem 6:
+This is also a multi-thread program. 
+Multiple threads pull from information such as the landing pattern at any given moment and the request to land queue. 
+If modifying this information takes time, race condition risks could present.  
+Using mutexes to syncronize shared resource access can solve this problem.
+It can also be an issue if resources are locked and multiple threads are waiting to access them.
+They can end up stuck forever. Avoiding circular wait conditions can prevent this issue. 
+Condition variables used could lead to inproper wakeups of ATC and this could affect the landing process. 
+To fix this we can use a predicate on "wait" calls. 
+If  entering the traffic pattern or diverging to another airport taking a long time, it can make the system unresponsive.
+This can be prevented by not using blocking operations or using concurrency control. 
